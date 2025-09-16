@@ -1,0 +1,57 @@
+<section class="my-30 mx-5 flex justify-center items-center">
+
+    <div class="sm:grid grid-cols-12 gap-4">
+
+        <!-- gallery -->
+        <div class="col-span-6">
+            <div class="card">
+                <p-galleria [value]="images" [responsiveOptions]="responsiveOptions"
+                    [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [circular]="true"
+                    [showItemNavigators]="true" [showThumbnails]="true">
+
+                    <ng-template #item let-item>
+                        <img [src]="item.itemImageSrc" style="max-width:65% ; max-height: 500px;" />
+                    </ng-template>
+
+                    <ng-template #thumbnail let-item>
+                        <img [src]="item.itemImageSrc" />
+                    </ng-template>
+                </p-galleria>
+            </div>
+        </div>
+
+        <!-- products details -->
+        <div class="col-span-6  mt-5">
+
+            <h2 class=" font-words mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                {{productDetails.title}}</h2>
+            <p class="text-gray-500 dark:text-gray-400">{{productDetails.description}}</p>
+            <p class="mt-3 font-bold ">{{productDetails.category?.name}}</p>
+            <hr class="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700">
+
+            <div class="flex justify-between ">
+                <span
+                    class=" font-words mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">{{productDetails.price}} EGP</span>
+
+                <span
+                    class=" font-words mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i> {{productDetails.ratingsAverage}}</span>
+            </div>
+
+            <button (click)="addToCartDetails(productDetails._id)" type="button"
+                class="mt-5 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    viewBox="0 0 18 21">
+                    <path
+                        d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                </svg>
+                add to cart
+            </button>
+
+        </div>
+
+
+
+    </div>
+
+</section>

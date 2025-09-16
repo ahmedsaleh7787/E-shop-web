@@ -1,0 +1,17 @@
+<div class="flex justify-center items-center">
+    <p class="p-3 w-[90%] bg-main-bg dark:bg-gray-900 dark:text-white rounded-2xl m-5 text-lg  font-words">
+        New Arrival
+    </p>
+</div>
+
+
+<div class="container mx-auto mb-5">
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 mx-2">
+        @for (product of productsList.slice(5); track $index) {
+
+              <app-card [product]="product" ></app-card>
+
+        }
+    </div>
+</div>

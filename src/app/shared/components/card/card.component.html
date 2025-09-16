@@ -1,0 +1,37 @@
+<div class="flex justify-center items-center">
+
+    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+
+        <a [routerLink]="['/details',product.slug,product._id]">
+            <img class="rounded-t-lg object-contain" src="{{product.imageCover}}" alt="{{product.title}}" />
+        </a>
+
+        <div class="p-5">
+            
+            <a [routerLink]="['/details',product.slug,product._id]">
+                <h5 class="mb-2 text-[1rem] font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1 ">
+                    {{product.title}}</h5>
+            </a>
+
+            <p class="mb-3 text-[0.9rem] text-gray-700 dark:text-gray-400 line-clamp-2 lg:line-clamp-1">
+                {{product.description}}
+            </p>
+
+            <div class="flex justify-between pb-2">
+                <span class="dark:text-white">{{product.price}} EGP</span>
+                <span class="dark:text-white"><i class="fa-solid fa-star " style="color: #FFD43B;"></i>
+                    {{product.ratingsAverage}}
+                </span>
+            </div>
+
+            <button (click)="addToCart(product._id)"
+                class="cursor-pointer w-full align-middle font-words text-black items-center px-3 py-2 text-sm font-medium text-center dark:text-white bg-main-one rounded-lg hover:bg-main-one-hover focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800">
+                <i class="fa-solid fa-cart-plus" style="margin-inline: 5px;"></i> add to cart
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
