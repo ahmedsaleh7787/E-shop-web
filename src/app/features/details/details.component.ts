@@ -5,6 +5,7 @@ import { ProductsData } from '../../core/models/products';
 import { GalleriaModule } from 'primeng/galleria';
 import { AddtocartService } from '../../shared/components/card/services/addtocart.service';
 import { ToastrService } from 'ngx-toastr';
+import { CountCartService } from '../../core/services/cart/count-cart.service';
 
 export interface GalleryImage {
   itemImageSrc: string;
@@ -30,7 +31,7 @@ export class DetailsComponent implements OnInit {
 
   private readonly activatedRoute = inject(ActivatedRoute)
   private readonly productDetailsService = inject(ProductDetailsService)
-
+  private countCartService = inject(CountCartService)
   ngOnInit(): void {
     this.getProductId();
     this.getProductDetails();
@@ -81,15 +82,15 @@ export class DetailsComponent implements OnInit {
 
   //add product to cart
   private addToCartApi = inject(AddtocartService)
-  private toster=inject(ToastrService)
+  private toster = inject(ToastrService)
   addToCartDetails(id: string) {
 
     this.addToCartApi.addToCart(id).subscribe({
       next: (res) => {
         console.log(res);
-        if(res.status==='success'){
-          
-          this.toster.success(res.message,res.status); 
+        if (res.status === 'success') {
+          this.countCartService.cartCount.next(res.numOfCartItems);
+          this.toster.success(res.message, res.status);
         }
 
       },

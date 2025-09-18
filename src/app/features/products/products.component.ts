@@ -5,11 +5,12 @@ import { CardComponent } from '../../shared/components/card/card.component';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { SearchPipe } from '../../shared/pipes/search.pipe';
 import { FormsModule, ɵInternalFormsSharedModule } from "@angular/forms";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
   selector: 'app-products',
-  imports: [CardComponent, PaginatorModule, SearchPipe, ɵInternalFormsSharedModule , FormsModule],
+  imports: [CardComponent, PaginatorModule, SearchPipe, ɵInternalFormsSharedModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
@@ -17,10 +18,11 @@ import { FormsModule, ɵInternalFormsSharedModule } from "@angular/forms";
 
 export class ProductsComponent {
 
+
   resultItems!: number;
   private _ProductsService = inject(ProductsService)
   productsList: ProductsData[] = [];
-  word:string='';
+  word: string = '';
 
   //Paginator
   first: number = 0;
@@ -48,16 +50,17 @@ export class ProductsComponent {
 
 
   getAllProductsData(eventPage: number = 1) {
-
     this._ProductsService.getAllProducts(eventPage).subscribe({
       next: (res) => {
         console.log("productsList", res);
         this.productsList = res.data;
         this.resultItems = res.results; //use it in html
         this.rows = res.metadata.limit;
+
       },
       error: (err) => {
         console.log(err);
+
 
       }
     })

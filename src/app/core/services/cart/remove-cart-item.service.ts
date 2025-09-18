@@ -12,11 +12,7 @@ export class RemoveCartItemService {
       constructor(private http:HttpClient , private cookieService:CookieService){}
   
   getCartItems(id:string):Observable<CartDataRes>{
-    return this.http.delete<CartDataRes>(`${environment.baseUrl}cart/${id}` ,{
-      headers:{
-        token:this.cookieService.get('token')
-      }
-    })
+    return this.http.delete<CartDataRes>(`${environment.baseUrl}cart/${id}`)
   }
 
 }

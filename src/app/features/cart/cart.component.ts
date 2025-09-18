@@ -6,11 +6,13 @@ import { RemoveCartItemService } from '../../core/services/cart/remove-cart-item
 import { ToastrService } from 'ngx-toastr';
 import { CurrencyPipe } from '@angular/common';
 import { UpdateCountService } from '../../core/services/cart/update-count.service';
+import { RouterLink } from '@angular/router';
+import { CountCartService } from '../../core/services/cart/count-cart.service';
 
 
 @Component({
   selector: 'app-cart',
-  imports: [TitleCasePipe, CurrencyPipe, CommonModule],
+  imports: [TitleCasePipe, CurrencyPipe, CommonModule, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -21,11 +23,11 @@ export class CartComponent implements OnInit {
 
   private getCartData = inject(GetCartFromApiService)
   private removeItems = inject(RemoveCartItemService)
-  private messageForUser = inject(ToastrService)
+  private toastrService = inject(ToastrService)
   private updateCountService = inject(UpdateCountService)
+  private countCartService = inject(CountCartService)
 
 
-  
   ngOnInit(): void {
     this.getCartItems();
   }
@@ -55,7 +57,10 @@ export class CartComponent implements OnInit {
         console.log('delete', res);
         this.cartDetails = res;
         if (res.status === 'success') {
-          this.messageForUser.warning("Item Removed")
+
+          this.countCartService.cartCount.next(res.numOfCartItems);
+          this.toastrService.warning("Item Removed")
+          
         }
 
       },

@@ -9,14 +9,10 @@ import { CartDataRes } from '../../models/cart-data-res';
   providedIn: 'root'
 })
 export class GetCartFromApiService {
-    constructor(private http:HttpClient , private cookieService:CookieService){}
+    constructor(private http:HttpClient){}
   
   getCartItems():Observable<CartDataRes>{
-    return this.http.get<CartDataRes>(`${environment.baseUrl}cart`,{
-      headers:{
-        token:this.cookieService.get('token')
-      }
-    })
+    return this.http.get<CartDataRes>(`${environment.baseUrl}cart`)
   }
 
 }

@@ -12,14 +12,7 @@ export class UpdateCountService {
   constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   updateCount(id: string, count: number): Observable<any> {
-    return this.http.put(`${environment.baseUrl}cart/${id}`, {
-      count: count
-    }, {
-      headers: {
-        token: this.cookieService.get('token')
-      }
-    }
-    )
+    return this.http.put(`${environment.baseUrl}cart/${id}`, {count: count} )
   }
 
 }

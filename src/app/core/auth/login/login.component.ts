@@ -1,16 +1,15 @@
 
-import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { Subscription } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
-import {CookieService} from 'ngx-cookie-service'; 
+import { CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputComponent],
+  imports: [ReactiveFormsModule, InputComponent, RouterLink],
   standalone: true,
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -24,10 +23,7 @@ export class LoginComponent implements OnInit {
   //api variables
   private path: AuthService = inject(AuthService);
   private route: Router = inject(Router);
-  isLoading = signal<boolean>(false);
-  errorMsg = signal<string>("");
   subscribe:Subscription=new Subscription()
-  platformId = inject(PLATFORM_ID);
 
   private readonly cookieService=inject(CookieService) 
 
@@ -65,13 +61,11 @@ export class LoginComponent implements OnInit {
   //send login data to api and loader
   logIn() {
     this.subscribe.unsubscribe();
-    this.isLoading.set(true);
     this.subscribe=this.path.postDataLogin(this.loginForm.value).subscribe(
       {
         next: (res) => {
           console.log("login response", res);
           if (res.message == "success") {
-            this.isLoading.set(false);
    
             this.cookieService.set('token',res.token) 
             
@@ -84,8 +78,6 @@ export class LoginComponent implements OnInit {
 
         error: (err) => {
           console.log(err);
-          this.errorMsg.set(err.error.message);
-          this.isLoading.set(false);
         },
 
       })

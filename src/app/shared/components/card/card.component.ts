@@ -3,6 +3,7 @@ import { ProductsData } from '../../../core/models/products';
 import { RouterLink } from '@angular/router';
 import { AddtocartService } from './services/addtocart.service';
 import { ToastrService } from 'ngx-toastr';
+import { CountCartService } from '../../../core/services/cart/count-cart.service';
 
 @Component({
   selector: 'app-card',
@@ -12,27 +13,36 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CardComponent {
 
-@Input({required:true})product:ProductsData = { } as ProductsData 
+  private countCartService = inject(CountCartService)
+  private addToCartApi = inject(AddtocartService)
+  private toster = inject(ToastrService)
 
-private addToCartApi=inject(AddtocartService)
+  @Input({ required: true }) product: ProductsData = {} as ProductsData
 
-private toster=inject(ToastrService)
 
-addToCart(id:string){
+  addToCart(id: string) {
 
-this.addToCartApi.addToCart(id).subscribe({
-  next:(res)=>{
-console.log(res);
-      if(res.status==='success'){
-          
-          this.toster.success(res.message,res.status); 
+    this.addToCartApi.addToCart(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.status === 'success') {
+
+          this.toster.success(res.message, res.status);
+          this.countCartService.cartCount.next(res.numOfCartItems);
+
         }
 
-  },
-  error:(err)=>{
-console.log(err);
+      },
+      error: (err) => {
+        console.log(err);
 
+      }
+    })
   }
-})
-}
+
+
+
+
+
+
 }

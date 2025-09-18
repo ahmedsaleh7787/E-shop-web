@@ -15,12 +15,7 @@ export class AddtocartService {
 
 
   addToCart(id: string): Observable<AddToCartResponse> {
-    return this.http.post<AddToCartResponse>(`${environment.baseUrl}cart`, { "productId": id },
-      {
-        headers: {
-          token: this.cookieService.get('token')
-        }
-      })
+    return this.http.post<AddToCartResponse>(`${environment.baseUrl}cart`, { "productId": id })
   }
 
 }

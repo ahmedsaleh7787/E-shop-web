@@ -1,36 +1,29 @@
-<section class="flex justify-center  dark:bg-gray-500 sm:my-46 md:py-10 items-center  " [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+<section class="flex justify-center  dark:bg-gray-500 sm:my-5 md:py-10 items-center  ">
 
 
-    <form class="w-[85%] max-w-80  py-5 p-2  md:w-[60%]  lg:w-[80%] lg:max-w-96 xl:max-w-lg ">
-
-
-        @if(errorMsg().length>0){
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-            <span class="font-medium">Error:</span> {{errorMsg()}}
-        </div>
-        }
-
+    <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()"
+        class="w-[85%] max-w-80  py-5 p-2  md:w-[60%]  lg:w-[80%] lg:max-w-96 xl:max-w-lg ">
 
 
         <!-- email input -->
-        <app-input [control]="loginForm.get('email')" [typeInput]="'email'" [idInput]="'email'" [placeHolder]="'ahmed.mohamed@gmail.com'"
-            [labelInput]="'Email address'"></app-input>
+        <app-input [control]="loginForm.get('email')" [typeInput]="'email'" [idInput]="'email'"
+            [placeHolder]="'ahmed.mohamed@gmail.com'" [labelInput]="'Email address'"></app-input>
 
 
         <!-- password input -->
-        <app-input [control]="loginForm.get('password')"  [idInput]="'password'" [placeHolder]="'•••••••••'"
+        <app-input [control]="loginForm.get('password')" [idInput]="'password'" [placeHolder]="'•••••••••'"
             [labelInput]="'Password'">
 
             assword must be at least 8 characters, include uppercase,
             lowercase, number, and special character.
         </app-input>
 
-        
+
 
         <button type="submit"
-            class="  cursor-pointer  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit
-            @if(isLoading()==true){ <i class="fa-solid fa-sync fa-spin"></i>}
+            class="  cursor-pointer  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Log in
         </button>
+        <a routerLink="/forget" class="block mt-2 text-blue-800 cursor-pointer" >Forgotten password?</a>
 
 
     </form>

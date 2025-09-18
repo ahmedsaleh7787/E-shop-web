@@ -13,6 +13,7 @@ import { CheckoutComponent } from './features/checkout/checkout.component';
 import { NotfoundComponent } from './features/notfound/notfound.component';
 import { authGuard } from './core/guards/auth.guard';
 import { isloggedGuard } from './core/guards/islogged.guard';
+import { ForgetpasswordComponent } from './core/auth/forgetpassword/forgetpassword.component';
 
 
 export const routes: Routes = [
@@ -23,7 +24,9 @@ export const routes: Routes = [
         path: '', component: AuthLayoutComponent, canActivate: [isloggedGuard], children: [
 
             { path: 'login', component: LoginComponent, title: 'Login Page' },
-            { path: 'register', component: RegisterComponent, title: 'Register Page' }
+            { path: 'register', component: RegisterComponent, title: 'Register Page' },
+            { path: 'forget', component: ForgetpasswordComponent, title: 'forgetPassword' }
+
 
         ]
     },
@@ -38,7 +41,7 @@ export const routes: Routes = [
             { path: 'categories', component: CategoriesComponent, title: 'Categories Page' },
             { path: 'details/:slug/:id', component: DetailsComponent, title: 'Details Page' },
             { path: 'details/:id', component: DetailsComponent, title: 'Details Page' },
-            { path: 'checkout', component: CheckoutComponent, title: 'Checkout Page' },
+            { path: 'checkout/:cartId', component: CheckoutComponent, title: 'Checkout Page' },
 
         ]
     },
