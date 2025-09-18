@@ -1,19 +1,10 @@
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './core/layout/auth-layout/auth-layout.component';
 import { BlankLayoutComponent } from './core/layout/blank-layout/blank-layout.component';
-import { LoginComponent } from './core/auth/login/login.component';
-import { RegisterComponent } from './core/auth/register/register.component';
-import { HomeComponent } from './features/home/home.component';
-import { CartComponent } from './features/cart/cart.component';
-import { ProductsComponent } from './features/products/products.component';
-import { BrandsComponent } from './features/brands/brands.component';
-import { CategoriesComponent } from './features/categories/categories.component';
-import { DetailsComponent } from './features/details/details.component';
-import { CheckoutComponent } from './features/checkout/checkout.component';
-import { NotfoundComponent } from './features/notfound/notfound.component';
 import { authGuard } from './core/guards/auth.guard';
 import { isloggedGuard } from './core/guards/islogged.guard';
-import { ForgetpasswordComponent } from './core/auth/forgetpassword/forgetpassword.component';
+
+
 
 
 export const routes: Routes = [
@@ -23,9 +14,9 @@ export const routes: Routes = [
     {
         path: '', component: AuthLayoutComponent, canActivate: [isloggedGuard], children: [
 
-            { path: 'login', component: LoginComponent, title: 'Login Page' },
-            { path: 'register', component: RegisterComponent, title: 'Register Page' },
-            { path: 'forget', component: ForgetpasswordComponent, title: 'forgetPassword' }
+            { path: 'login', loadComponent:()=>import('../../src/app/core/auth/login/login.component').then((res)=>res.LoginComponent), title: 'Login Page' },
+            { path: 'register', loadComponent:()=>import('../../src/app/core/auth/register/register.component').then((res)=>res.RegisterComponent), title: 'Register Page' },
+            { path: 'forget', loadComponent:()=>import('../../src/app/core/auth/forgetpassword/forgetpassword.component').then((res)=>res.ForgetpasswordComponent), title: 'forgetPassword' }
 
 
         ]
@@ -34,18 +25,18 @@ export const routes: Routes = [
     {
         path: '', component: BlankLayoutComponent, canActivate: [authGuard], children: [
 
-            { path: 'home', component: HomeComponent, title: 'Home Page' },
-            { path: 'cart', component: CartComponent, title: 'Cart Page' },
-            { path: 'products', component: ProductsComponent, title: 'Products Page' },
-            { path: 'brands', component: BrandsComponent, title: 'Brands Page' },
-            { path: 'categories', component: CategoriesComponent, title: 'Categories Page' },
-            { path: 'details/:slug/:id', component: DetailsComponent, title: 'Details Page' },
-            { path: 'details/:id', component: DetailsComponent, title: 'Details Page' },
-            { path: 'checkout/:cartId', component: CheckoutComponent, title: 'Checkout Page' },
+            { path: 'home', loadComponent:()=>import('../../src/app/features/home/home.component').then((res)=>res.HomeComponent), title: 'Home Page' },
+            { path: 'cart',loadComponent:()=>import('../../src/app/features/cart/cart.component').then((res)=>res.CartComponent), title: 'Cart Page' },
+            { path: 'products', loadComponent:()=>import('../../src/app/features/products/products.component').then((res)=>res.ProductsComponent), title: 'Products Page' },
+            { path: 'brands', loadComponent:()=>import('../../src/app/features/brands/brands.component').then((res)=>res.BrandsComponent), title: 'Brands Page' },
+            { path: 'categories', loadComponent:()=>import('../../src/app/features/details/details.component').then((res)=>res.DetailsComponent), title: 'Categories Page' },
+            { path: 'details/:slug/:id',loadComponent:()=>import('../../src/app/features/details/details.component').then((res)=>res.DetailsComponent), title: 'Details Page' },
+            { path: 'details/:id', loadComponent:()=>import('../../src/app/features/details/details.component').then((res)=>res.DetailsComponent), title: 'Details Page' },
+            { path: 'checkout/:cartId', loadComponent:()=>import('../../src/app/features/checkout/checkout.component').then((res)=>res.CheckoutComponent), title: 'Checkout Page' },
 
         ]
     },
 
-    { path: '**', component: NotfoundComponent, title: 'NotFound' }
+    { path: '**', loadComponent:()=>import('../../src/app/features/notfound/notfound.component').then((res)=>res.NotfoundComponent), title: 'NotFound' }
 
 ];

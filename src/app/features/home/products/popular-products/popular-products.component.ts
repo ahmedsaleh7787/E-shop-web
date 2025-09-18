@@ -3,6 +3,7 @@ import { ProductsService } from '../../../../core/services/products/products.ser
 import { ProductsData } from '../../../../core/models/products';
 import { CardComponent } from '../../../../shared/components/card/card.component';
 
+
 @Component({
   selector: 'app-popular-products',
   imports: [CardComponent],

@@ -4,10 +4,12 @@ import { RouterLink } from '@angular/router';
 import { AddtocartService } from './services/addtocart.service';
 import { ToastrService } from 'ngx-toastr';
 import { CountCartService } from '../../../core/services/cart/count-cart.service';
+import { ProgressSpinner } from 'primeng/progressspinner';
+
 
 @Component({
   selector: 'app-card',
-  imports: [RouterLink],
+  imports: [RouterLink,ProgressSpinner],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss'
 })
@@ -24,7 +26,7 @@ export class CardComponent {
 
     this.addToCartApi.addToCart(id).subscribe({
       next: (res) => {
-        console.log(res);
+        
         if (res.status === 'success') {
 
           this.toster.success(res.message, res.status);

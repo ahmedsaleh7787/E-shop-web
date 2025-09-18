@@ -1,3 +1,5 @@
+@defer (on viewport){
+
 <div class="flex justify-center items-center">
 
     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -7,7 +9,7 @@
         </a>
 
         <div class="p-5">
-            
+
             <a [routerLink]="['/details',product.slug,product._id]">
                 <h5 class="mb-2 text-[1rem] font-bold tracking-tight text-gray-900 dark:text-white line-clamp-1 ">
                     {{product.title}}</h5>
@@ -35,3 +37,19 @@
     </div>
 
 </div>
+
+
+} @placeholder {
+<div class="card flex justify-center">
+    <p-progress-spinner ariaLabel="loading" />
+</div>
+}@loading {
+<div class="card flex justify-center">
+    <p-progress-spinner ariaLabel="loading" />
+</div>}
+
+@error {
+<div>
+    <i class="fa-solid fa-circle-exclamation fa-xl"></i>
+</div>
+}
