@@ -1,8 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputComponent } from "../../shared/components/input/input.component";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CheckOutService } from '../../core/services/checkOut/check-out.service';
+import { CountCartService } from '../../core/services/cart/count-cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,10 +18,12 @@ export class CheckoutComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly activatedRoute = inject(ActivatedRoute)
   private readonly CheckOutService = inject(CheckOutService)
+  private route = inject(Router)
+  private countCartService = inject(CountCartService)
+  private toastrService = inject(ToastrService)
 
   CartId: string | null = null;
   checkOutForm!: FormGroup;
-  errorMsg:string='';
 
 
   ngOnInit(): void {
@@ -70,6 +74,29 @@ export class CheckoutComponent implements OnInit {
 
 
 
+
+  CheckOutVisa() {
+
+    this.CheckOutService.visa(this.CartId, this.checkOutForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.status === "success") {
+          window.open(res.session.url, '_self')
+        }
+
+      },
+      error: (err) => {
+        console.log(err.error.message);
+
+      }
+    })
+
+  }
+
+
+
+
+
   CheckOutCashSubmit() {
 
     if (this.checkOutForm.valid) {
@@ -82,50 +109,22 @@ export class CheckoutComponent implements OnInit {
   }
 
 
-  CheckOutVisa() {
-
-    console.log(this.CartId);
-    console.log(this.checkOutForm.value);
-
-    this.CheckOutService.visa(this.CartId,this.checkOutForm.value).subscribe({
-      next:(res)=>{
-           console.log(res);
-           if(res.status === "success"){
-            window.open(res.session.url,'_self')
-            //i need here http://localhost:4200/allorders and using get user order
-           }
-           
-      },
-      error:(err)=>{
-         console.log(err.error.message);
-         this.errorMsg=err?.error?.message;
-         
-      }
-    })
-
-  }
-
   CheckOutCash() {
 
-    console.log(this.CartId);
-    console.log(this.checkOutForm.value);
+    this.CheckOutService.cash(this.CartId, this.checkOutForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.status === "success") {
+          this.toastrService.info("set new order successfully")
+          this.countCartService.cartCount.next(0);
+          this.route.navigate(['/allorders'])
 
-    this.CheckOutService.cash(this.CartId,this.checkOutForm.value).subscribe({
-      next:(res)=>{
-           console.log(res);
-           if(res.status === "success"){
-            console.log("dddddddddddddddd");
-            //i need here page show the order
+        }
 
-            
-           }
-           
       },
-      error:(err)=>{
-         console.log(err);
-         this.errorMsg=err?.error?.message;
+      error: (err) => {
+        console.log(err);
 
-         
       }
     })
 

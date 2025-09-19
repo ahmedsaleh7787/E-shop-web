@@ -1,16 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { FlowbiteService } from '../../../core/services/flowbite.service';
 import { initFlowbite } from 'flowbite';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { CountCartService } from '../../../core/services/cart/count-cart.service';
 import { GetCartFromApiService } from '../../../core/services/cart/get-cart-from-api.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, OverlayBadgeModule],
+  imports: [RouterLink, OverlayBadgeModule ,RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -18,13 +19,11 @@ import { GetCartFromApiService } from '../../../core/services/cart/get-cart-from
 
 export class NavbarComponent {
 
-  constructor(private flowbiteService: FlowbiteService, private CookieService: CookieService, private countCartService: CountCartService, private readonly router: Router, private getCartFromApiService: GetCartFromApiService) { }
+  constructor(private flowbiteService: FlowbiteService, private CookieService: CookieService, private countCartService: CountCartService, private readonly router: Router, private getCartFromApiService: GetCartFromApiService , private toastrService:ToastrService) { }
 
   @Input({ required: true }) isLogin!: boolean;
 
   countCart!: number
-
-
 
 
   ngOnInit(): void {

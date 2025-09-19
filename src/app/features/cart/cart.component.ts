@@ -33,7 +33,7 @@ export class CartComponent implements OnInit {
   }
 
 
-
+  //get cart item from api
   getCartItems() {
     this.getCartData.getCartItems().subscribe({
       next: (res) => {
@@ -49,7 +49,7 @@ export class CartComponent implements OnInit {
   }
 
 
-
+  //remove item
   removeItem(id: string) {
     this.removeItems.getCartItems(id).subscribe({
       next: (res) => {
@@ -60,7 +60,7 @@ export class CartComponent implements OnInit {
 
           this.countCartService.cartCount.next(res.numOfCartItems);
           this.toastrService.warning("Item Removed")
-          
+
         }
 
       },
@@ -72,7 +72,7 @@ export class CartComponent implements OnInit {
   }
 
 
-
+  //increse or decrese count of product
   updateCount(id: string, count: number) {
     this.updateCountService.updateCount(id, count).subscribe({
       next: (res) => {
@@ -86,5 +86,8 @@ export class CartComponent implements OnInit {
       }
     })
   }
+
+
+
 
 }

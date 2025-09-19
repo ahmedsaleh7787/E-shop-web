@@ -1,11 +1,26 @@
-@defer (on viewport){
-
 <div class="flex justify-center items-center">
 
     <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
         <a [routerLink]="['/details',product.slug,product._id]">
+            @defer (on viewport){
+
             <img class="rounded-t-lg object-contain" src="{{product.imageCover}}" alt="{{product.title}}" />
+
+            } @placeholder {
+            <div class="card flex justify-center">
+                <p-progress-spinner ariaLabel="loading" />
+            </div>
+            }@loading {
+            <div class="card flex justify-center">
+                <p-progress-spinner ariaLabel="loading" />
+            </div>}
+
+            @error {
+            <div>
+                <i class="fa-solid fa-circle-exclamation fa-xl"></i>
+            </div>
+            }
         </a>
 
         <div class="p-5">
@@ -37,19 +52,3 @@
     </div>
 
 </div>
-
-
-} @placeholder {
-<div class="card flex justify-center">
-    <p-progress-spinner ariaLabel="loading" />
-</div>
-}@loading {
-<div class="card flex justify-center">
-    <p-progress-spinner ariaLabel="loading" />
-</div>}
-
-@error {
-<div>
-    <i class="fa-solid fa-circle-exclamation fa-xl"></i>
-</div>
-}

@@ -29,10 +29,12 @@ export const routes: Routes = [
             { path: 'cart',loadComponent:()=>import('../../src/app/features/cart/cart.component').then((res)=>res.CartComponent), title: 'Cart Page' },
             { path: 'products', loadComponent:()=>import('../../src/app/features/products/products.component').then((res)=>res.ProductsComponent), title: 'Products Page' },
             { path: 'brands', loadComponent:()=>import('../../src/app/features/brands/brands.component').then((res)=>res.BrandsComponent), title: 'Brands Page' },
-            { path: 'categories', loadComponent:()=>import('../../src/app/features/details/details.component').then((res)=>res.DetailsComponent), title: 'Categories Page' },
+            { path: 'categories', loadComponent:()=>import('../../src/app/features/categories/categories.component').then((res)=>res.CategoriesComponent), title: 'Categories Page' },
             { path: 'details/:slug/:id',loadComponent:()=>import('../../src/app/features/details/details.component').then((res)=>res.DetailsComponent), title: 'Details Page' },
             { path: 'details/:id', loadComponent:()=>import('../../src/app/features/details/details.component').then((res)=>res.DetailsComponent), title: 'Details Page' },
             { path: 'checkout/:cartId', loadComponent:()=>import('../../src/app/features/checkout/checkout.component').then((res)=>res.CheckoutComponent), title: 'Checkout Page' },
+            { path: 'allorders', loadComponent:()=>import('../../src/app/features/allorders/allorders.component').then((res)=>res.AllordersComponent), title: 'allOrders Page' }
+
 
         ]
     },

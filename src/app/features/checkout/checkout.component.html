@@ -4,11 +4,7 @@
     <form [formGroup]="checkOutForm" 
         class="w-[85%] max-w-80  py-5 p-2  md:w-[60%]  lg:w-[80%] lg:max-w-96 xl:max-w-lg ">
 
-         <!-- @if(errorMsg.length>0){
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-            <span class="font-medium">Error:</span> {{errorMsg}}
-        </div>
-        }  -->
+
 
         <!-- name input -->
         <app-input [control]="checkOutForm.get('shippingAddress')?.get('details')" [typeInput]="'text'"

@@ -8,6 +8,8 @@ import { LoginSendToApi } from '../../../core/models/login-send-to-api';
 import { LoginResInterface } from '../../../core/models/login-res-interface';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { jwtDecode } from "jwt-decode";
+import { Tokendecode } from '../../models/tokendecode';
 
 
 @Injectable({
@@ -43,17 +45,20 @@ export class AuthService {
     return this.http.put(`${environment.baseUrl}auth/resetPassword`, info)
   }
 
+  
 
-  //maybe i will use it
+  //get token decoded
+  token:Tokendecode ={} as Tokendecode;
+
   decodeToken() {
-    let token;
-
     try {
+      this.token = jwtDecode(this.CookieService.get('token'))
+
     } catch (error) {
       this.signout();
     }
 
-    return token;
+    return this.token;
   }
 
 

@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forgetpassword',
@@ -21,7 +22,7 @@ export class ForgetpasswordComponent {
   private readonly cookieService = inject(CookieService)
   private readonly fb = inject(FormBuilder)
   private readonly routes = inject(Router)
-
+  private toastrService = inject(ToastrService)
   forgetEmailForm!: FormGroup;
   getCodeForm!: FormGroup;
   resetPasswordForm!: FormGroup;
@@ -135,6 +136,9 @@ export class ForgetpasswordComponent {
         console.log(res);
         if (res.token) {
           this.cookieService.set('token', res.token);
+              this.toastrService.info("you set new password successfully")
+
+
           this.routes.navigate(['/home'])
         }
 

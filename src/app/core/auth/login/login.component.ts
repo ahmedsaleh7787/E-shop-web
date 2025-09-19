@@ -5,7 +5,8 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../../shared/components/input/input.component';
 import { Subscription } from 'rxjs';
-import { CookieService} from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -23,9 +24,10 @@ export class LoginComponent implements OnInit {
   //api variables
   private path: AuthService = inject(AuthService);
   private route: Router = inject(Router);
-  subscribe:Subscription=new Subscription()
+  subscribe: Subscription = new Subscription()
 
-  private readonly cookieService=inject(CookieService) 
+  private readonly cookieService = inject(CookieService)
+  private toastrService = inject(ToastrService)
 
   ngOnInit(): void {
     this.loginInitForm();
@@ -61,18 +63,16 @@ export class LoginComponent implements OnInit {
   //send login data to api and loader
   logIn() {
     this.subscribe.unsubscribe();
-    this.subscribe=this.path.postDataLogin(this.loginForm.value).subscribe(
+    this.subscribe = this.path.postDataLogin(this.loginForm.value).subscribe(
       {
         next: (res) => {
           console.log("login response", res);
           if (res.message == "success") {
-   
-            this.cookieService.set('token',res.token) 
-            
-           //maybe i will use it
-           console.log("decodeToken",this.path.decodeToken()) 
 
+            this.cookieService.set('token', res.token)
+            this.toastrService.info("logged in successfully")
             this.route.navigate(["/home"])
+
           }
         },
 
